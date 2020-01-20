@@ -5,7 +5,7 @@ class Search(object):
 
     """Algorithm to find path to goal cell"""
 
-    def __init__(self, board, init_pos=(0, 0), goal_pos=(0, 0)):
+    def __init__(self, board, init_pos=(0, 0), goal_pos=(0,0)):
         self.board = board
         self.init_pos = init_pos
         self.curr_node = None
@@ -24,10 +24,23 @@ class Search(object):
         
         while True:
             if len(self.fringe) == 0:
-                return -1
+                return -1, []
             self.curr_node = self._remove_front_from_fringe()
+            #print(self.curr_node)
             if self._goal_test():
-                return self.curr_node.g
+                visits = self.closed
+
+                route = []
+                target = visits.__getitem__(visits.__len__()-1)
+                parent = target.parent.pos
+                route.append(target.pos)
+                route.append(parent)
+                for val in range (visits.__len__()-1, 0 , -1):
+                    curr = visits.__getitem__(val)
+                    if curr.pos != parent: continue
+                    parent = curr.parent.pos
+                    route.append(parent)
+                return self.curr_node.g , route
             self.closed.append(self.curr_node)
             neighbours = self.board.get_neighbours(*self.curr_node.pos)
             neighbour_nodes = [Node(pos=neighbour,
@@ -47,7 +60,8 @@ class Search(object):
                     continue
                 else:
                     self.fringe.append(n)
-            #print(self)
+            #print('Here')
+
 
 
     def _heuristic(self, pos):
