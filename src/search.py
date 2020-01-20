@@ -47,7 +47,7 @@ class Search(object):
                     continue
                 else:
                     self.fringe.append(n)
-            print(self)
+            #print(self)
 
 
     def _heuristic(self, pos):
