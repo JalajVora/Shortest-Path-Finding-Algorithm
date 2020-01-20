@@ -1,3 +1,3 @@
-# Shortest-Path-Finding-Algorithm 
+# Teraki ML Test 
 
-This algorithm is created to find shortest possible path from one node (in a sqaure grid) to another.
+
